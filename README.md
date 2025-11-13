@@ -72,6 +72,7 @@ Functional examples are included in the
 
 | Name | Description |
 |------|-------------|
+| apphub\_service\_uri | Service URI in CAIS style to be used by Apphub. |
 | function\_name | Name of the Cloud Function (Gen 2) |
 | function\_uri | URI of the Cloud Function (Gen 2) |
 

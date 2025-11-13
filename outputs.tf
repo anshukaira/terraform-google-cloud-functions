@@ -23,3 +23,12 @@ output "function_name" {
   description = "Name of the Cloud Function (Gen 2)"
   value       = var.function_name
 }
+
+output "apphub_service_uri" {
+  value = {
+    service_uri = "//cloudfunctions.googleapis.com/${google_cloudfunctions2_function.function.service_config[0].uri}"
+    service_id  = substr("${var.function_name}-${md5("google-cloud-function-${var.location}-${var.project_id}")}", 0, 63)
+    location    = var.location
+  }
+  description = "Service URI in CAIS style to be used by Apphub."
+}
