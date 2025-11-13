@@ -26,7 +26,7 @@ output "function_name" {
 
 output "apphub_service_uri" {
   value = {
-    service_uri = "//cloudfunctions.googleapis.com/${google_cloudfunctions2_function.function.service_config[0].uri}"
+    service_uri = "//cloudfunctions.googleapis.com/projects/${var.project_id}/locations/${var.location}/functions/${var.function_name}"
     service_id  = substr("${var.function_name}-${md5("google-cloud-function-${var.location}-${var.project_id}")}", 0, 63)
     location    = var.location
   }

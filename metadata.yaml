@@ -217,6 +217,11 @@ spec:
     outputs:
       - name: apphub_service_uri
         description: Service URI in CAIS style to be used by Apphub.
+        type:
+          - object
+          - location: string
+            service_id: string
+            service_uri: string
       - name: function_name
         description: Name of the Cloud Function (Gen 2)
         type: string
