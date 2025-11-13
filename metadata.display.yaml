@@ -33,6 +33,8 @@ spec:
         build_service_account:
           name: build_service_account
           title: Build Service Account
+          regexValidation: ^projects/[a-z0-9-]+/serviceAccounts/[a-z][a-z0-9-]{4,29}@[a-z][a-z0-9-]{4,29}\.iam\.gserviceaccount\.com$
+          validation: "Must be the full service account identifier: projects/{project_id}/serviceAccounts/{account_email}"
         description:
           name: description
           title: Description
@@ -46,6 +48,12 @@ spec:
         event_trigger:
           name: event_trigger
           title: Event Trigger
+          properties:
+            service_account_email:
+              name: service_account_email
+              title: Service Account Email
+              regexValidation: ^[a-z][a-z0-9-]{4,29}@[a-z][a-z0-9-]{4,29}\.iam\.gserviceaccount\.com$
+              validation: Service account email must be in the format {account-id}@{project-id}.iam.gserviceaccount.com.
         function_location:
           name: function_location
           title: Function Location
@@ -141,11 +149,44 @@ spec:
               value: dotnet6
             - label: DOT_NET_3
               value: dotnet3
-
           level: 1
         service_config:
           name: service_config
           title: Service Config
+          properties:
+            available_cpu:
+              name: available_cpu
+              title: Available CPU
+              subtext: Number of vCPUs allocated to each instance of this container
+              enumValueLabels:
+                - label: "1"
+                  value: "1"
+                - label: "2"
+                  value: "2"
+                - label: "4"
+                  value: "4"
+                - label: "8"
+                  value: "8"
+            available_memory:
+              name: available_memory
+              title: Available Memory
+              regexValidation: ^[0-9]+(Mi|Gi|M|G)$
+              validation: Must be a valid memory size with unit, such as Mi, Gi, M, or G
+              subtext: Memory to allocate to each instance of this container
+            secret_volumes:
+              name: secret_volumes
+              title: Secret Volumes
+              properties:
+                mount_path:
+                  name: mount_path
+                  title: Mount Path
+                  regexValidation: ^(/[^/ ]+)*/?$
+                  validation: Mount path must be an absolute path (e.g., /mnt/data).
+            service_account_email:
+              name: service_account_email
+              title: Service Account Email
+              regexValidation: ^[a-z][a-z0-9-]{4,29}@[a-z][a-z0-9-]{4,29}\.iam\.gserviceaccount\.com$
+              validation: Service account email must be in the format {account-id}@{project-id}.iam.gserviceaccount.com.
         storage_source:
           name: storage_source
           title: Storage Source
